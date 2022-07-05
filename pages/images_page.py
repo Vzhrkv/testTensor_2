@@ -1,6 +1,11 @@
 from .base_page import BasePage
+
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.mouse_button import MouseButton
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver import ActionChains
+
 
 class ImagesPage(BasePage):
 
@@ -9,8 +14,8 @@ class ImagesPage(BasePage):
         self.category = '//*[@class="PopularRequestList-Item PopularRequestList-Item_pos_0"]'
         self.search_text = '//*[@class="PopularRequestList-SearchText"]'
         self.image = 'serp-item__link'
-        self.next_button = '/html/body/div[12]/div[2]/div/div/div/div[3]/div/div[2]/div[1]/div[4]/i'
-        self.back_button = '/html/body/div[12]/div[2]/div/div/div/div[3]/div/div[2]/div[1]/div[4]/i'
+        self.next_button = '.CircleButton_type_next'
+        self.prev_button = '.CircleButton_type_prev'
 
     def get_to_images_category(self):
         images = self.driver.find_element(By.XPATH, self.category)
@@ -27,10 +32,10 @@ class ImagesPage(BasePage):
         img = self.driver.find_elements(By.CLASS_NAME, self.image)
         return img[0].click()
 
-    def press_next_button(self):
-        element = self.driver.find_element(By.XPATH, self.next_button)
-        return element.send_keys(Keys.ARROW_RIGHT)
+    def get_next(self):
+        element = self.is_present(By.CSS_SELECTOR, self.next_button)
+        return element.click()
 
-    def press_back_button(self):
-        element = self.driver.find_element(By.XPATH, self.back_button)
-        return element.click(Keys.ARROW_LEFT)
+    def get_back(self):
+        element = self.is_present(By.CSS_SELECTOR, self.prev_button)
+        return element.click()
