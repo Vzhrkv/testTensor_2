@@ -1,7 +1,6 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webelement import WebElement
-from typing import List
 
 
 class BasePage:
@@ -16,7 +15,7 @@ class BasePage:
         """function for find element on page"""
         return self.wait.until(EC.presence_of_element_located((by_what, value)))
 
-    def are_present(self,by_what, value) -> List[WebElement]:
+    def are_present(self,by_what, value) -> list:
         return self.wait.until(EC.presence_of_all_elements_located((by_what, value)))
 
     def is_clickable(self, by_what, value) -> WebElement:
